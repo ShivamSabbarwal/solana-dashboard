@@ -1,5 +1,6 @@
 // Libraries
 import express from 'express';
+import cors from 'cors';
 
 // Routes
 import marketCapRoutes from './routes/marketCapRoutes';
@@ -8,7 +9,12 @@ import walletBalanceRoutes from './routes/walletBalanceRoutes';
 
 const app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:5173', // Allow only the frontend origin
+};
+
 // Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

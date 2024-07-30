@@ -51,7 +51,7 @@ const fetchMarketCapData = async (tokens: Token[], currency: Currency) => {
     })
   );
 
-  return marketCaps;
+  return { currencies: ['usd', 'cad', 'eur'], series: marketCaps };
 };
 
 // Fetch Token Prices

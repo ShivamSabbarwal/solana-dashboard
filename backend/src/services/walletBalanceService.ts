@@ -15,13 +15,14 @@ export const getWalletBalanceData = async (cacheKey: string, wallets: string[]) 
 const fetchWalletBalanceData = async (wallets: string[]) => {
   const rpcClient = getRPCClient();
 
-  const walletPromises = wallets.map(async wallet => {
+  const walletPromises = wallets.map(async (wallet) => {
     const walletKey = new PublicKey(wallet);
     const lamports = await rpcClient.getBalance(walletKey);
-    return { wallet, lamports, sol: lamports / 1e9 }; // Convert from lamports to SOL
+
+    return { address: wallet, lamports, sol: lamports / 1e9 }; // Convert from lamports to SOL
   });
 
   const balances = await Promise.all(walletPromises);
 
-  return balances;
+  return { labels: wallets, series: balances };
 };

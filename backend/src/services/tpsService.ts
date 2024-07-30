@@ -21,13 +21,10 @@ const fetchTPSData = async (hours: Hours = 1) => {
   // Map the performance samples to a timeseries dataset
   const tpsData = performanceSamples.map((sample, index) => {
     const timeStamp = Date.now() - (numSamples - index) * 60 * 1000;
-    return {
-      ...sample,
-      timeStamp,
-      utcDateTime: new Date(timeStamp).toUTCString(),
-      tps: sample.numTransactions / sample.samplePeriodSecs,
-    };
+    const tps: number = parseFloat((sample.numTransactions / sample.samplePeriodSecs).toFixed(2));
+
+    return [timeStamp, tps];
   });
-  console.log('tpsData', tpsData.length);
-  return tpsData;
+
+  return { hours: [1, 3, 6, 12], series: tpsData };
 };
