@@ -1,28 +1,29 @@
-// src/components/__tests__/RadioButtonGroup.test.tsx
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 
+const options = [1, 3, 6, 12];
+const mockOnChange = jest.fn();
+
 describe('RadioButtonGroup', () => {
-  it('renders radio buttons correctly', () => {
-    const options = ['Option 1', 'Option 2'];
-    render(<RadioButtonGroup options={options} selectedOption="Option 1" onChange={() => {}} />);
-    expect(screen.getByLabelText('Option 1')).toBeInTheDocument();
-    expect(screen.getByLabelText('Option 2')).toBeInTheDocument();
+  it('renders options correctly', () => {
+    render(<RadioButtonGroup options={options} selectedOption={1} onChange={mockOnChange} labelFormatter={(option) => `${option} Hours`} />);
+
+    options.forEach((option) => {
+      expect(screen.getByText(`${option} Hours`)).toBeInTheDocument();
+    });
   });
 
-  it('marks the selected option', () => {
-    const options = ['Option 1', 'Option 2'];
-    render(<RadioButtonGroup options={options} selectedOption="Option 1" onChange={() => {}} />);
-    expect(screen.getByLabelText('Option 1')).toBeChecked();
-    expect(screen.getByLabelText('Option 2')).not.toBeChecked();
+  it('highlights the selected option', () => {
+    render(<RadioButtonGroup options={options} selectedOption={3} onChange={mockOnChange} labelFormatter={(option) => `${option} Hours`} />);
+
+    expect(screen.getByText('3 Hours')).toHaveClass('text-white bg-slate-800');
   });
 
-  it('calls onChange when a different option is selected', () => {
-    const onChangeMock = jest.fn();
-    const options = ['Option 1', 'Option 2'];
-    render(<RadioButtonGroup options={options} selectedOption="Option 1" onChange={onChangeMock} />);
-    fireEvent.click(screen.getByLabelText('Option 2'));
-    expect(onChangeMock).toHaveBeenCalledWith('Option 2');
+  it('calls onChange when an option is clicked', () => {
+    render(<RadioButtonGroup options={options} selectedOption={1} onChange={mockOnChange} labelFormatter={(option) => `${option} Hours`} />);
+
+    fireEvent.click(screen.getByText('6 Hours'));
+    expect(mockOnChange).toHaveBeenCalledWith(6);
   });
 });
