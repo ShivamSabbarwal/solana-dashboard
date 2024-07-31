@@ -7,18 +7,18 @@ interface RadioButtonGroupProps<T> {
 
 const RadioButtonGroup = <T extends string | number>({ options = [], selectedOption, onChange, labelFormatter }: RadioButtonGroupProps<T>) => {
   return (
-    <div className="flex gap-4 p-4">
+    <div className="flex gap-2 rounded-md shadow-sm" role="group">
       {options.map((option) => (
-        <label key={option} className="flex items-center cursor-pointer">
-          <input
-            type="radio"
-            value={option}
-            checked={selectedOption === option}
-            onChange={() => onChange(option)}
-            className="form-radio text-blue-500 h-4 w-4"
-          />
-          <span className="ml-2 text-gray-700">{labelFormatter ? labelFormatter(option) : option.toString()}</span>
-        </label>
+        <button
+          key={option}
+          onClick={() => onChange(option)}
+          type="button"
+          className={`align-middle font-semibold text-center transition-all text-xs py-1 px-2 rounded-lg border border-slate-800  hover:opacity-50 ${
+            selectedOption === option ? 'text-white bg-slate-800 ' : 'text-slate-800 bg-white'
+          }`}
+        >
+          {labelFormatter ? labelFormatter(option) : option.toString()}
+        </button>
       ))}
     </div>
   );

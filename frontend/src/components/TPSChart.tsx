@@ -12,40 +12,36 @@ const TPSChart: React.FC = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['transactionsPerSecond', selectedHours],
     queryFn: () => fetchTransactionsPerSecond(selectedHours),
+    staleTime: 60 * 1000,
   });
 
   const options = {
-    chart: { toolbar: { show: false } },
+    chart: {
+      toolbar: { show: false },
+      zoom: { enabled: false },
+    },
     xaxis: { type: 'datetime' as const, title: { text: 'Time' } },
     yaxis: { title: { text: 'TPS' } },
-    stroke: { curve: 'smooth' as const },
-
-    title: {
-      text: 'Transactions Per Second',
-      // align: 'center',
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    tooltip: {
-      shared: true,
-      intersect: false,
-    },
+    stroke: { curve: 'smooth' as const, width: 1.5 },
   };
 
   const series = [{ name: 'TPS', data: data?.series || [] }];
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg">
-      <div className="mb-4">
-        <RadioButtonGroup
-          options={data?.hours}
-          selectedOption={selectedHours}
-          onChange={setSelectedHours}
-          labelFormatter={(option) => `${option} Hours`}
-        />
-      </div>
-      <ChartComponent isLoading={isLoading} error={error}>
+    <div className="p-4 bg-white shadow-lg rounded-lg">
+      <ChartComponent
+        isLoading={isLoading}
+        error={error}
+        title="Transactions Per Second"
+        rightContent={
+          <RadioButtonGroup
+            options={data?.hours}
+            selectedOption={selectedHours}
+            onChange={setSelectedHours}
+            labelFormatter={(option) => `${option} Hours`}
+          />
+        }
+      >
         <ApexCharts options={options} series={series} type="line" />
       </ChartComponent>
     </div>
