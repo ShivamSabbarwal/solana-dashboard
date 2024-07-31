@@ -6,10 +6,8 @@ const client = axios.create({
   baseURL: API_BASE_URL,
 });
 
-export const fetchMarketCap = async (currency: string) => {
-  const { data } = await client.get(`market-cap`, {
-    params: { currency },
-  });
+export const fetchMarketCap = async () => {
+  const { data } = await client.get(`market-cap`);
   return data;
 };
 
