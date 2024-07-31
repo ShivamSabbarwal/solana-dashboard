@@ -8,16 +8,16 @@ export const getWalletBalances = async (req: Request, res: Response, next: NextF
   try {
     // Hardcoded wallets for assessment purposes
     const wallets = [
+      '7mhcgF1DVsj5iv4CxZDgp51H6MBBwqamsH1KnqXhSRc5',
+      'FWznbcNXWQuHTawe9RxvQ2LdCENssh12dsznf4RiouN5',
       '9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM',
-      '61aq585V8cR2sZBeawJFt2NPqmN7zDi1sws4KLs5xHXV',
-      'EXJHiMkj6NRFDfhWBMKccHNwdSpCT7tdvQeRf87yHm6T',
-      '5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1',
-      'Q6XprfkF8RQQKoQVG33xT88H7wi8Uk1B1CC7YAs69Gi',
-      '5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9',
-      '9uyDy9VDBw4K7xoSkhmCAm8NAFCwu4pkF6JeHUCtVKcX',
-      '9DrvZvyWh1HuAoZxvYWMvkf2XCzryCpGgHqrMjyDWpmo',
-      '3EpUYHv8NzoD5EzqB74JTYUtva2c1wj3Wq3oR5gaLfGt',
-      'AVzP2GeRmqGphJsMxWoqjpUifPpCret7LqWhD8NWQK49',
+      '5VCwKtCXgCJ6kit5FybXjvriW3xELsFDhYrPSqtJNmcD',
+      '6FEVkH17P9y8Q9aCkDdPcMDjvj7SVxrTETaYEm8f51Jy',
+      '42brAgAVNzMBP7aaktPvAmBSPEkehnFQejiZc53EpJFd',
+      '3yFwqXBfZY4jBVUafQ1YEXw189y2dN3V5KQq9uzBDy1E',
+      '9VWD3xbXWtC2aGN1mQcVFwZMRPSjJfknNYq4DqGQ7B8B',
+      '5MfwpEF6XPBDaBBGsiEviNe8sMeF7DZCdQeC5mdrP1pt',
+      'bazxfWH6Vu2FncaSKc3kkgvyCuPwyFpx4ryZPcNiG7x',
     ];
 
     const data = await getWalletBalanceData(req.url, wallets);
